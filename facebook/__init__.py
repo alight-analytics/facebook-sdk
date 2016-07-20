@@ -44,8 +44,6 @@ __version__ = version.__version__
 
 FACEBOOK_GRAPH_URL = "https://graph.facebook.com/"
 FACEBOOK_OAUTH_DIALOG_URL = "https://www.facebook.com/dialog/oauth?"
-VALID_API_VERSIONS = ["2.0", "2.1", "2.2", "2.3", "2.4", "2.5", "2.6"]
-
 
 class GraphAPI(object):
     """A client for the Facebook Graph API.
@@ -79,7 +77,7 @@ class GraphAPI(object):
     def __init__(self, access_token=None, timeout=None, version=None,
                  proxies=None):
         # The default version is only used if the version kwarg does not exist.
-        default_version = "2.0"
+        default_version = "2.7"
 
         self.access_token = access_token
         self.timeout = timeout
@@ -89,10 +87,6 @@ class GraphAPI(object):
             version_regex = re.compile("^\d\.\d$")
             match = version_regex.search(str(version))
             if match is not None:
-                if str(version) not in VALID_API_VERSIONS:
-                    raise GraphAPIError("Valid API versions are " +
-                                        str(VALID_API_VERSIONS).strip('[]'))
-                else:
                     self.version = "v" + str(version)
             else:
                 raise GraphAPIError("Version number should be in the"
